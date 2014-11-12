@@ -2,6 +2,7 @@ package Regex::Lexer;
 use 5.008001;
 use strict;
 use warnings;
+use Regex::Lexer::TokenType;
 use parent qw(Exporter);
 
 our @EXPORT_OK = qw(tokenize);
@@ -12,47 +13,84 @@ our $VERSION = "0.01";
 # Type name should be constants
 
 my %escapedSpecialChar = (
-    t => 'Tab',                      n => 'Newline',
-    r => 'Return',                   f => 'FormFeed',
-    a => 'Alarm',                    e => 'Escape',
-    c => 'ControlChar',              x => 'CharHex',
-    N => 'CharUnicode',              o => 'CharOct',
-    0 => 'CharOct',                  l => 'LowerNext',
-    u => 'UpperNext',                L => 'LowerUntil',
-    U => 'UpperUntil',               Q => 'QuoteMetaUntil',
-    E => 'End',                      w => 'WordChar',
-    W => 'NotWordChar',              s => 'WhiteSpaceChar',
-    S => 'NotWhiteSpaceChar',        d => 'DigitChar',
-    D => 'NotDigitChar',             p => 'prop',
-    P => 'NotProp',                  X => 'UnicodeExtendedChar',
-    C => 'CChar',                    1 => 'BackRef',
-    2 => 'BackRef',                  3 => 'BackRef',
-    4 => 'BackRef',                  5 => 'BackRef',
-    6 => 'BackRef',                  7 => 'BackRef',
-    8 => 'BackRef',                  9 => 'BackRef',
-    g => 'BackRef',                  k => 'BackRef',
-    K => 'KeepStuff',                N => 'NotNewline',
-    v => 'VerticalWhitespace',       V => 'NotVerticalWhitespace',
-    h => 'HorizontalWhitespace',     H => 'NotHorizontalWhitespace',
-    R => 'Linebreak',                b => 'WordBoundary',
-    B => 'NotWordBoundary',          A => 'BeginOfString',
-    Z => 'EndOfStringBeforeNewline', z => 'EndOfString',
-    G => 'pos'
+    t => Regex::Lexer::TokenType::EscapedTab,
+    n => Regex::Lexer::TokenType::EscapedNewline,
+    r => Regex::Lexer::TokenType::EscapedReturn,
+    f => Regex::Lexer::TokenType::EscapedFormFeed,
+    a => Regex::Lexer::TokenType::EscapedAlarm,
+    e => Regex::Lexer::TokenType::EscapedEscape,
+    c => Regex::Lexer::TokenType::EscapedControlChar,
+    x => Regex::Lexer::TokenType::EscapedCharHex,
+    N => Regex::Lexer::TokenType::EscapedCharUnicode,
+    o => Regex::Lexer::TokenType::EscapedCharOct,
+    0 => Regex::Lexer::TokenType::EscapedCharOct,
+    l => Regex::Lexer::TokenType::EscapedLowerNext,
+    u => Regex::Lexer::TokenType::EscapedUpperNext,
+    L => Regex::Lexer::TokenType::EscapedLowerUntil,
+    U => Regex::Lexer::TokenType::EscapedUpperUntil,
+    Q => Regex::Lexer::TokenType::EscapedQuoteMetaUntil,
+    E => Regex::Lexer::TokenType::EscapedEnd,
+    w => Regex::Lexer::TokenType::EscapedWordChar,
+    W => Regex::Lexer::TokenType::EscapedNotWordChar,
+    s => Regex::Lexer::TokenType::EscapedWhiteSpaceChar,
+    S => Regex::Lexer::TokenType::EscapedNotWhiteSpaceChar,
+    d => Regex::Lexer::TokenType::EscapedDigitChar,
+    D => Regex::Lexer::TokenType::EscapedNotDigitChar,
+    p => Regex::Lexer::TokenType::EscapedProp,
+    P => Regex::Lexer::TokenType::EscapedNotProp,
+    X => Regex::Lexer::TokenType::EscapedUnicodeExtendedChar,
+    C => Regex::Lexer::TokenType::EscapedCChar,
+    1 => Regex::Lexer::TokenType::EscapedBackRef,
+    2 => Regex::Lexer::TokenType::EscapedBackRef,
+    3 => Regex::Lexer::TokenType::EscapedBackRef,
+    4 => Regex::Lexer::TokenType::EscapedBackRef,
+    5 => Regex::Lexer::TokenType::EscapedBackRef,
+    6 => Regex::Lexer::TokenType::EscapedBackRef,
+    7 => Regex::Lexer::TokenType::EscapedBackRef,
+    8 => Regex::Lexer::TokenType::EscapedBackRef,
+    9 => Regex::Lexer::TokenType::EscapedBackRef,
+    g => Regex::Lexer::TokenType::EscapedBackRef,
+    k => Regex::Lexer::TokenType::EscapedBackRef,
+    K => Regex::Lexer::TokenType::EscapedKeepStuff,
+    N => Regex::Lexer::TokenType::EscapedNotNewline,
+    v => Regex::Lexer::TokenType::EscapedVerticalWhitespace,
+    V => Regex::Lexer::TokenType::EscapedNotVerticalWhitespace,
+    h => Regex::Lexer::TokenType::EscapedHorizontalWhitespace,
+    H => Regex::Lexer::TokenType::EscapedNotHorizontalWhitespace,
+    R => Regex::Lexer::TokenType::EscapedLinebreak,
+    b => Regex::Lexer::TokenType::EscapedWordBoundary,
+    B => Regex::Lexer::TokenType::EscapedNotWordBoundary,
+    A => Regex::Lexer::TokenType::EscapedBeginningOfString,
+    Z => Regex::Lexer::TokenType::EscapedEndOfStringBeforeNewline,
+    z => Regex::Lexer::TokenType::EscapedEndOfString,
+    G => Regex::Lexer::TokenType::EscapedPos,
 );
 
 my %specialChar = (
-    '.'  => 'MatchAny',        '|'  => 'Alternation',
-    '('  => 'LeftParenthesis', ')'  => 'RightParenthesis',
-    '['  => 'LeftBracket',     ']'  => 'RightBracket',
-    '{'  => 'LeftBrace',       '}'  => 'RightBrace',
-    '<'  => 'LeftAngle',       '>'  => 'RightAngle',
-    '*'  => 'Asterisk',        '+'  => 'Plus',
-    '?'  => 'Question',        ','  => 'Comma',
-    '-'  => 'Minus',           '$'  => 'ScalarSigil',
-    '@'  => 'ArraySigil',      ':'  => 'Colon',
-    '#'  => 'Sharp',           '^'  => 'Cap',
-    '='  => 'Equal',           '!'  => 'Exclamation',
-    q<'> => 'SingleQuote',     q<"> => 'DoubleQuote',
+    '.'  => Regex::Lexer::TokenType::MatchAny,
+    '|'  => Regex::Lexer::TokenType::Alternation,
+    '('  => Regex::Lexer::TokenType::LeftParenthesis,
+    ')'  => Regex::Lexer::TokenType::RightParenthesis,
+    '['  => Regex::Lexer::TokenType::LeftBracket,
+    ']'  => Regex::Lexer::TokenType::RightBracket,
+    '{'  => Regex::Lexer::TokenType::LeftBrace,
+    '}'  => Regex::Lexer::TokenType::RightBrace,
+    '<'  => Regex::Lexer::TokenType::LeftAngle,
+    '>'  => Regex::Lexer::TokenType::RightAngle,
+    '*'  => Regex::Lexer::TokenType::Asterisk,
+    '+'  => Regex::Lexer::TokenType::Plus,
+    '?'  => Regex::Lexer::TokenType::Question,
+    ','  => Regex::Lexer::TokenType::Comma,
+    '-'  => Regex::Lexer::TokenType::Minus,
+    '$'  => Regex::Lexer::TokenType::ScalarSigil,
+    '@'  => Regex::Lexer::TokenType::ArraySigil,
+    ':'  => Regex::Lexer::TokenType::Colon,
+    '#'  => Regex::Lexer::TokenType::Sharp,
+    '^'  => Regex::Lexer::TokenType::Cap,
+    '='  => Regex::Lexer::TokenType::Equal,
+    '!'  => Regex::Lexer::TokenType::Exclamation,
+    q<'> => Regex::Lexer::TokenType::SingleQuote,
+    q<"> => Regex::Lexer::TokenType::DoubleQuote,
 );
 
 sub tokenize {
@@ -68,7 +106,7 @@ sub tokenize {
         push @tokens, {
             char  => pop @chars,
             index => $pos,
-            type  => 'EndOfLine',
+            type  => Regex::Lexer::TokenType::EndOfLine,
         };
     }
 
@@ -76,7 +114,7 @@ sub tokenize {
         push @tokens, {
             char  => shift @chars,
             index => ++$index,
-            type  => 'BeginOfLine',
+            type  => Regex::Lexer::TokenType::BeginningOfLine,
         };
     }
 
@@ -87,7 +125,7 @@ sub tokenize {
             push @tokens, {
                 char  => '\\' . $c,
                 index => ++$index,
-                type  => $escapedSpecialChar{$c} || 'Escaped'
+                type  => $escapedSpecialChar{$c} || Regex::Lexer::TokenType::EscapedCharacter,
             };
 
             $escaped = 0;
@@ -103,7 +141,7 @@ sub tokenize {
         push @tokens, {
             char  => $c,
             index => ++$index,
-            type  => $specialChar{$c} || 'Character',
+            type  => $specialChar{$c} || Regex::Lexer::TokenType::Character,
         };
     }
 
