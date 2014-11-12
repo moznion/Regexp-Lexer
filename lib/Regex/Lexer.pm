@@ -9,9 +9,6 @@ our @EXPORT_OK = qw(tokenize);
 
 our $VERSION = "0.01";
 
-# TODO
-# Type name should be constants
-
 my %escapedSpecialChar = (
     t => Regex::Lexer::TokenType::EscapedTab,
     n => Regex::Lexer::TokenType::EscapedNewline,
