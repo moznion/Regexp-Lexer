@@ -98,13 +98,10 @@ sub tokenize {
     my @tokens;
     my $index = 0;
 
+    my $end_of_line_exists = 0;
     if ($chars[-1] eq '$') {
-        my $pos = scalar @chars;
-        push @tokens, {
-            char  => pop @chars,
-            index => $pos,
-            type  => Regex::Lexer::TokenType::EndOfLine,
-        };
+        pop @chars;
+        $end_of_line_exists = 1;
     }
 
     if ($chars[0] eq '^') {
@@ -139,6 +136,14 @@ sub tokenize {
             char  => $c,
             index => ++$index,
             type  => $specialChar{$c} || Regex::Lexer::TokenType::Character,
+        };
+    }
+
+    if ($end_of_line_exists) {
+        push @tokens, {
+            char  => '$',
+            index => ++$index,
+            type  => Regex::Lexer::TokenType::EndOfLine,
         };
     }
 
