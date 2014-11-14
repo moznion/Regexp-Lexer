@@ -1,5 +1,5 @@
 name = "Regex-Lexer"
-# badges = ["travis"]
+badges = ["travis"]
 authority="cpan:MOZNION"
 
 module_maker="ModuleBuildTiny"
