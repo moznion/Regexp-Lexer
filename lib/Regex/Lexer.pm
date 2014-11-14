@@ -2,6 +2,8 @@ package Regex::Lexer;
 use 5.008001;
 use strict;
 use warnings;
+use B;
+use Carp qw/croak/;
 use Regex::Lexer::TokenType;
 use parent qw(Exporter);
 
@@ -91,8 +93,26 @@ my %specialChar = (
 );
 
 sub tokenize {
-    my ($re_str) = @_;
+    my ($re) = @_;
 
+    if (ref $re ne 'Regexp') {
+        croak("Not regexp quoted argument is given");
+    }
+
+    # B::cstring() is used to escape backslashes
+    my $re_cluster_string = B::cstring($re);
+
+    # to remove double-quotes and parenthesis on leading and trailing
+    my $re_str = substr(substr($re_cluster_string, 2), 0, -2);
+
+    # extract options (modifiers)
+    $re_str =~ s/\A?([^:])*://;
+    my @options;
+    for my $option (split //, $1) {
+        push @options, $option;
+    }
+
+    $re_str =~ s/\\\\/\\/g; # reduce backslashes which was expanded by B::cstring
     my @chars = split //, $re_str;
 
     my @tokens;
@@ -113,7 +133,6 @@ sub tokenize {
     }
 
     my $escaped = 0;
-
     for my $c (@chars) {
         if ($escaped) {
             push @tokens, {
