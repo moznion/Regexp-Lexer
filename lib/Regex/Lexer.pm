@@ -105,11 +105,11 @@ sub tokenize {
     # to remove double-quotes and parenthesis on leading and trailing
     my $re_str = substr(substr($re_cluster_string, 2), 0, -2);
 
-    # extract options (modifiers)
-    $re_str =~ s/\A?([^:])*://;
-    my @options;
-    for my $option (split //, $1) {
-        push @options, $option;
+    # extract modifiers
+    $re_str =~ s/\A[?]([^:]*)://;
+    my @modifiers;
+    for my $modifier (split //, $1) {
+        push @modifiers, $modifier;
     }
 
     $re_str =~ s/\\\\/\\/g; # reduce backslashes which was expanded by B::cstring
@@ -166,7 +166,10 @@ sub tokenize {
         };
     }
 
-    return \@tokens;
+    return {
+        tokens    => \@tokens,
+        modifiers => \@modifiers,
+    };
 }
 
 1;
