@@ -96,7 +96,7 @@ sub tokenize {
     my ($re) = @_;
 
     if (ref $re ne 'Regexp') {
-        croak("Not regexp quoted argument is given");
+        croak "Not regexp quoted argument is given";
     }
 
     # B::cstring() is used to escape backslashes
@@ -112,7 +112,6 @@ sub tokenize {
         push @modifiers, $modifier;
     }
 
-    $re_str =~ s/\\\\/\\/g; # reduce backslashes which was expanded by B::cstring
     my @chars = split //, $re_str;
 
     my @tokens;
@@ -132,22 +131,58 @@ sub tokenize {
         };
     }
 
-    my $escaped = 0;
-    for my $c (@chars) {
-        if ($escaped) {
+    my $backslashes = 0;
+    my $next_c;
+    for (my $i = 0; my $c = $chars[$i]; $i++) {
+        if ($c eq '\\') {
+            if ($backslashes <= 1) {
+                $backslashes++;
+                next;
+            }
+
+            # now status -> '\\\\\\'
+            if ($backslashes == 2) {
+                $next_c = $chars[++$i];
+                if (!defined $next_c || $next_c ne '\\') {
+                    croak "Invalid syntax regexp is given";
+                }
+
+                push @tokens, {
+                    char  => '\\\\',
+                    index => ++$index,
+                    type  => Regex::Lexer::TokenType::EscapedCharacter,
+                };
+
+                $backslashes = 0;
+                next;
+            }
+        }
+
+        # To support *NOT META* newline character which is in regexp
+        if ($backslashes == 1) {
+            if ($c ne 'n' && $c ne 'r') {
+                croak "Invalid syntax regexp is given";
+            }
+
+            push @tokens, {
+                char  => '\\' . $c,
+                index => ++$index,
+                type  => $c eq 'n' ? Regex::Lexer::TokenType::Newline
+                                   : Regex::Lexer::TokenType::Return,
+            };
+
+            $backslashes = 0;
+            next;
+        }
+
+        if ($backslashes == 2) {
             push @tokens, {
                 char  => '\\' . $c,
                 index => ++$index,
                 type  => $escapedSpecialChar{$c} || Regex::Lexer::TokenType::EscapedCharacter,
             };
 
-            $escaped = 0;
-
-            next;
-        }
-
-        if ($c eq '\\') {
-            $escaped = 1;
+            $backslashes = 0;
             next;
         }
 
@@ -156,6 +191,8 @@ sub tokenize {
             index => ++$index,
             type  => $specialChar{$c} || Regex::Lexer::TokenType::Character,
         };
+
+        $backslashes = 0; # for fail safe
     }
 
     if ($end_of_line_exists) {

@@ -26,6 +26,8 @@ normal:
     - ScalarSigil
     - SingleQuote
     - DoubleQuote
+    - Newline
+    - Return
 escaped:
     - Character
     - Tab
