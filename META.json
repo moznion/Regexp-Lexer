@@ -57,13 +57,13 @@
    "release_status" : "unstable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/moznion/Regex-Lexer/issues"
+         "web" : "https://github.com/moznion/Regexp-Lexer/issues"
       },
-      "homepage" : "https://github.com/moznion/Regex-Lexer",
+      "homepage" : "https://github.com/moznion/Regexp-Lexer",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/moznion/Regex-Lexer.git",
-         "web" : "https://github.com/moznion/Regex-Lexer"
+         "url" : "git://github.com/moznion/Regexp-Lexer.git",
+         "web" : "https://github.com/moznion/Regexp-Lexer"
       }
    },
    "version" : "0.01",

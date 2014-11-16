@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/moznion/Regex-Lexer.svg?branch=master)](https://travis-ci.org/moznion/Regex-Lexer)
+[![Build Status](https://travis-ci.org/moznion/Regexp-Lexer.svg?branch=master)](https://travis-ci.org/moznion/Regexp-Lexer)
 # NAME
 
 Regexp::Lexer - Lexer for regular expression of perl
