@@ -54,6 +54,8 @@ $src .= <<'...';
 1;
 __END__
 
+=for stopwords EscapedCChar
+
 =encoding utf-8
 
 =head1 NAME
