@@ -16,6 +16,7 @@ my %escapedSpecialChar = (
     n => Regex::Lexer::TokenType::EscapedNewline,
     r => Regex::Lexer::TokenType::EscapedReturn,
     f => Regex::Lexer::TokenType::EscapedFormFeed,
+    F => Regex::Lexer::TokenType::EscapedFoldcase,
     a => Regex::Lexer::TokenType::EscapedAlarm,
     e => Regex::Lexer::TokenType::EscapedEscape,
     c => Regex::Lexer::TokenType::EscapedControlChar,

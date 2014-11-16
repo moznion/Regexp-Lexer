@@ -70,3 +70,4 @@ escaped:
     - EndOfStringBeforeNewline
     - EndOfString
     - Pos
+    - Foldcase
