@@ -227,15 +227,73 @@ __END__
 
 =head1 NAME
 
-Regex::Lexer - It's new $module
+Regex::Lexer - Lexer for regular expression of perl
 
 =head1 SYNOPSIS
 
-    use Regex::Lexer;
+    use Regex::Lexer qw(tokenize);
+    my $tokens = tokenize(qr{\Ahello\s+world\z}i);
 
 =head1 DESCRIPTION
 
-Regex::Lexer is ...
+Regex::Lexer is a lexer for regular expression of perl.
+
+This module splits the regular expression string to tokens
+which has minimum meaning.
+
+=head1 FUNCTIONS
+
+=over 4
+
+=item * C<tokenize($re:Regexp)>
+
+Tokenizes the regular expression.
+
+This function takes a argument as C<Regexp>, namely it must be regexp quoted variable (i.e. C<qr/SOMETHING/>).
+If not C<Regexp> argument is given, this function throws exception.
+
+This function returns the result like so;
+
+    {
+        tokens => [
+            {
+                char => '\A',
+                index => 1,
+                type => {
+                    id => 67,
+                    name => 'EscapedBeginningOfString',
+                },
+            },
+            {
+                char => 'h',
+                index => 2,
+                type => {
+                    id => 1,
+                    name => 'Character',
+                },
+            },
+            ...
+        ],
+        modifiers => ['^', 'i'],
+    }
+
+C<tokens> is the token list. Information C<type> of token is located in the L<Regex::Lexer::TokenType>.
+
+C<modifiers> is the list of modifiers of regular expression. Please see also L<perlre>.
+
+=back
+
+=head1 SEE ALSO
+
+=over 4
+
+=item * L<perlre>
+
+=item * L<perlrebackslash>
+
+=item * L<Regex::Lexer::TokenType>
+
+=back
 
 =head1 LICENSE
 
