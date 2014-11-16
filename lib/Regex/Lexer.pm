@@ -143,7 +143,7 @@ sub tokenize {
             if ($backslashes == 2) {
                 $next_c = $chars[++$i];
                 if (!defined $next_c || $next_c ne '\\') {
-                    croak "Invalid syntax regexp is given";
+                    croak "Invalid syntax regexp is given"; # fail safe
                 }
 
                 push @tokens, {
@@ -159,15 +159,18 @@ sub tokenize {
 
         # To support *NOT META* newline character which is in regexp
         if ($backslashes == 1) {
-            if ($c ne 'n' && $c ne 'r') {
-                croak "Invalid syntax regexp is given";
+            my $type = Regex::Lexer::TokenType::Unknown;
+            if ($c eq 'n') {
+                $type = Regex::Lexer::TokenType::Newline;
+            }
+            elsif ($c eq 'r') {
+                $type = Regex::Lexer::TokenType::Return;
             }
 
             push @tokens, {
                 char  => '\\' . $c,
                 index => ++$index,
-                type  => $c eq 'n' ? Regex::Lexer::TokenType::Newline
-                                   : Regex::Lexer::TokenType::Return,
+                type  => $type,
             };
 
             $backslashes = 0;

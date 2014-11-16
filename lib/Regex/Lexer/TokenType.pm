@@ -124,172 +124,176 @@ use constant {
         id => 29,
         name => 'Return',
     },
-    EscapedCharacter => {
+    Unknown => {
         id => 30,
+        name => 'Unknown',
+    },
+    EscapedCharacter => {
+        id => 31,
         name => 'EscapedCharacter',
     },
     EscapedTab => {
-        id => 31,
+        id => 32,
         name => 'EscapedTab',
     },
     EscapedNewline => {
-        id => 32,
+        id => 33,
         name => 'EscapedNewline',
     },
     EscapedReturn => {
-        id => 33,
+        id => 34,
         name => 'EscapedReturn',
     },
     EscapedFormFeed => {
-        id => 34,
+        id => 35,
         name => 'EscapedFormFeed',
     },
     EscapedAlarm => {
-        id => 35,
+        id => 36,
         name => 'EscapedAlarm',
     },
     EscapedEscape => {
-        id => 36,
+        id => 37,
         name => 'EscapedEscape',
     },
     EscapedControlChar => {
-        id => 37,
+        id => 38,
         name => 'EscapedControlChar',
     },
     EscapedCharHex => {
-        id => 38,
+        id => 39,
         name => 'EscapedCharHex',
     },
     EscapedCharUnicode => {
-        id => 39,
+        id => 40,
         name => 'EscapedCharUnicode',
     },
     EscapedCharOct => {
-        id => 40,
+        id => 41,
         name => 'EscapedCharOct',
     },
     EscapedLowerNext => {
-        id => 41,
+        id => 42,
         name => 'EscapedLowerNext',
     },
     EscapedUpperNext => {
-        id => 42,
+        id => 43,
         name => 'EscapedUpperNext',
     },
     EscapedLowerUntil => {
-        id => 43,
+        id => 44,
         name => 'EscapedLowerUntil',
     },
     EscapedUpperUntil => {
-        id => 44,
+        id => 45,
         name => 'EscapedUpperUntil',
     },
     EscapedQuoteMetaUntil => {
-        id => 45,
+        id => 46,
         name => 'EscapedQuoteMetaUntil',
     },
     EscapedEnd => {
-        id => 46,
+        id => 47,
         name => 'EscapedEnd',
     },
     EscapedWordChar => {
-        id => 47,
+        id => 48,
         name => 'EscapedWordChar',
     },
     EscapedNotWordChar => {
-        id => 48,
+        id => 49,
         name => 'EscapedNotWordChar',
     },
     EscapedWhiteSpaceChar => {
-        id => 49,
+        id => 50,
         name => 'EscapedWhiteSpaceChar',
     },
     EscapedNotWhiteSpaceChar => {
-        id => 50,
+        id => 51,
         name => 'EscapedNotWhiteSpaceChar',
     },
     EscapedDigitChar => {
-        id => 51,
+        id => 52,
         name => 'EscapedDigitChar',
     },
     EscapedNotDigitChar => {
-        id => 52,
+        id => 53,
         name => 'EscapedNotDigitChar',
     },
     EscapedProp => {
-        id => 53,
+        id => 54,
         name => 'EscapedProp',
     },
     EscapedNotProp => {
-        id => 54,
+        id => 55,
         name => 'EscapedNotProp',
     },
     EscapedUnicodeExtendedChar => {
-        id => 55,
+        id => 56,
         name => 'EscapedUnicodeExtendedChar',
     },
     EscapedCChar => {
-        id => 56,
+        id => 57,
         name => 'EscapedCChar',
     },
     EscapedBackRef => {
-        id => 57,
+        id => 58,
         name => 'EscapedBackRef',
     },
     EscapedKeepStuff => {
-        id => 58,
+        id => 59,
         name => 'EscapedKeepStuff',
     },
     EscapedNotNewline => {
-        id => 59,
+        id => 60,
         name => 'EscapedNotNewline',
     },
     EscapedVerticalWhitespace => {
-        id => 60,
+        id => 61,
         name => 'EscapedVerticalWhitespace',
     },
     EscapedNotVerticalWhitespace => {
-        id => 61,
+        id => 62,
         name => 'EscapedNotVerticalWhitespace',
     },
     EscapedHorizontalWhitespace => {
-        id => 62,
+        id => 63,
         name => 'EscapedHorizontalWhitespace',
     },
     EscapedNotHorizontalWhitespace => {
-        id => 63,
+        id => 64,
         name => 'EscapedNotHorizontalWhitespace',
     },
     EscapedLinebreak => {
-        id => 64,
+        id => 65,
         name => 'EscapedLinebreak',
     },
     EscapedWordBoundary => {
-        id => 65,
+        id => 66,
         name => 'EscapedWordBoundary',
     },
     EscapedNotWordBoundary => {
-        id => 66,
+        id => 67,
         name => 'EscapedNotWordBoundary',
     },
     EscapedBeginningOfString => {
-        id => 67,
+        id => 68,
         name => 'EscapedBeginningOfString',
     },
     EscapedEndOfStringBeforeNewline => {
-        id => 68,
+        id => 69,
         name => 'EscapedEndOfStringBeforeNewline',
     },
     EscapedEndOfString => {
-        id => 69,
+        id => 70,
         name => 'EscapedEndOfString',
     },
     EscapedPos => {
-        id => 70,
+        id => 71,
         name => 'EscapedPos',
     },
     EscapedFoldcase => {
-        id => 71,
+        id => 72,
         name => 'EscapedFoldcase',
     },
 };
@@ -377,6 +381,8 @@ If you want to identify the token, I highly recommend you to use C<id>.
 =item * Newline
 
 =item * Return
+
+=item * Unknown
 
 =item * EscapedCharacter
 

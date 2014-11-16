@@ -28,6 +28,7 @@ normal:
     - DoubleQuote
     - Newline
     - Return
+    - Unknown
 escaped:
     - Character
     - Tab
