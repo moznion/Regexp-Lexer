@@ -52,6 +52,56 @@ $src .= <<'...';
 };
 
 1;
+__END__
+
+=encoding utf-8
+
+=head1 NAME
+
+Regex::Lexer::TokenType - Token types of Regex::Lexer
+
+=head1 DESCRIPTION
+
+This module provides token types for L<Regex::Lexer>.
+
+Format of token type is bellow;
+
+    {
+        id => <ID of token>,
+        name => <name of token>
+    }
+
+If you want to identify the token, I highly recommend you to use C<id>.
+
+=head1 TYPES
+
+=over 4
+
+...
+
+for my $normal_type (@$normal_types) {
+    $src .= "=item * $normal_type\n\n";
+}
+
+for my $escaped_type (@$escaped_types) {
+    $src .= "=item * Escaped$escaped_type\n\n";
+}
+
+$src .= <<'...';
+=back
+
+=head1 LICENSE
+
+Copyright (C) moznion.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 AUTHOR
+
+moznion E<lt>moznion@gmail.comE<gt>
+
+=cut
 
 ...
 

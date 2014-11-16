@@ -295,4 +295,185 @@ use constant {
 };
 
 1;
+__END__
+
+=encoding utf-8
+
+=head1 NAME
+
+Regex::Lexer::TokenType - Token types of Regex::Lexer
+
+=head1 DESCRIPTION
+
+This module provides token types for L<Regex::Lexer>.
+
+Format of token type is bellow;
+
+    {
+        id => <ID of token>,
+        name => <name of token>
+    }
+
+If you want to identify the token, I highly recommend you to use C<id>.
+
+=head1 TYPES
+
+=over 4
+
+=item * Character
+
+=item * BeginningOfLine
+
+=item * EndOfLine
+
+=item * MatchAny
+
+=item * Alternation
+
+=item * LeftParenthesis
+
+=item * RightParenthesis
+
+=item * LeftBracket
+
+=item * RightBracket
+
+=item * LeftBrace
+
+=item * RightBrace
+
+=item * LeftAngle
+
+=item * RightAngle
+
+=item * Equal
+
+=item * Plus
+
+=item * Minus
+
+=item * Asterisk
+
+=item * Sharp
+
+=item * Cap
+
+=item * Comma
+
+=item * Colon
+
+=item * Exclamation
+
+=item * Question
+
+=item * ArraySigil
+
+=item * ScalarSigil
+
+=item * SingleQuote
+
+=item * DoubleQuote
+
+=item * Newline
+
+=item * Return
+
+=item * EscapedCharacter
+
+=item * EscapedTab
+
+=item * EscapedNewline
+
+=item * EscapedReturn
+
+=item * EscapedFormFeed
+
+=item * EscapedAlarm
+
+=item * EscapedEscape
+
+=item * EscapedControlChar
+
+=item * EscapedCharHex
+
+=item * EscapedCharUnicode
+
+=item * EscapedCharOct
+
+=item * EscapedLowerNext
+
+=item * EscapedUpperNext
+
+=item * EscapedLowerUntil
+
+=item * EscapedUpperUntil
+
+=item * EscapedQuoteMetaUntil
+
+=item * EscapedEnd
+
+=item * EscapedWordChar
+
+=item * EscapedNotWordChar
+
+=item * EscapedWhiteSpaceChar
+
+=item * EscapedNotWhiteSpaceChar
+
+=item * EscapedDigitChar
+
+=item * EscapedNotDigitChar
+
+=item * EscapedProp
+
+=item * EscapedNotProp
+
+=item * EscapedUnicodeExtendedChar
+
+=item * EscapedCChar
+
+=item * EscapedBackRef
+
+=item * EscapedKeepStuff
+
+=item * EscapedNotNewline
+
+=item * EscapedVerticalWhitespace
+
+=item * EscapedNotVerticalWhitespace
+
+=item * EscapedHorizontalWhitespace
+
+=item * EscapedNotHorizontalWhitespace
+
+=item * EscapedLinebreak
+
+=item * EscapedWordBoundary
+
+=item * EscapedNotWordBoundary
+
+=item * EscapedBeginningOfString
+
+=item * EscapedEndOfStringBeforeNewline
+
+=item * EscapedEndOfString
+
+=item * EscapedPos
+
+=item * EscapedFoldcase
+
+=back
+
+=head1 LICENSE
+
+Copyright (C) moznion.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 AUTHOR
+
+moznion E<lt>moznion@gmail.comE<gt>
+
+=cut
 
