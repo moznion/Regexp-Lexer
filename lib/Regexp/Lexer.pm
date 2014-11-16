@@ -104,6 +104,8 @@ sub tokenize {
     # to remove double-quotes and parenthesis on leading and trailing
     my $re_str = substr(substr($re_cluster_string, 2), 0, -2);
 
+    $re_str =~ s/\\"/"/g; # for double quote which is converted by B::cstring
+
     # extract modifiers
     $re_str =~ s/\A[?]([^:]*)://;
     my @modifiers;
