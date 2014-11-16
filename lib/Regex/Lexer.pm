@@ -254,6 +254,7 @@ Tokenizes the regular expression.
 
 This function takes a argument as C<Regexp>, namely it must be regexp quoted variable (i.e. C<qr/SOMETHING/>).
 If not C<Regexp> argument is given, this function throws exception.
+And invalid syntax regular expression is given, also this function throws exception.
 
 This function returns the result like so;
 

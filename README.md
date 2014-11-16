@@ -23,6 +23,7 @@ which has minimum meaning.
 
     This function takes a argument as `Regexp`, namely it must be regexp quoted variable (i.e. `qr/SOMETHING/`).
     If not `Regexp` argument is given, this function throws exception.
+    And invalid syntax regular expression is given, also this function throws exception.
 
     This function returns the result like so;
 
