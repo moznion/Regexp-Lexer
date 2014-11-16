@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 use utf8;
-use Regex::Lexer qw(tokenize);
+use Regexp::Lexer qw(tokenize);
 
 use Test::More;
 

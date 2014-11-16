@@ -1,16 +1,16 @@
 [![Build Status](https://travis-ci.org/moznion/Regex-Lexer.svg?branch=master)](https://travis-ci.org/moznion/Regex-Lexer)
 # NAME
 
-Regex::Lexer - Lexer for regular expression of perl
+Regexp::Lexer - Lexer for regular expression of perl
 
 # SYNOPSIS
 
-    use Regex::Lexer qw(tokenize);
+    use Regexp::Lexer qw(tokenize);
     my $tokens = tokenize(qr{\Ahello\s+world\z}i);
 
 # DESCRIPTION
 
-Regex::Lexer is a lexer for regular expression of perl.
+Regexp::Lexer is a lexer for regular expression of perl.
 
 This module splits the regular expression string to tokens
 which has minimum meaning.
@@ -50,7 +50,7 @@ which has minimum meaning.
             modifiers => ['^', 'i'],
         }
 
-    `tokens` is the token list. Information `type` of token is located in the [Regex::Lexer::TokenType](https://metacpan.org/pod/Regex::Lexer::TokenType).
+    `tokens` is the token list. Information `type` of token is located in the [Regexp::Lexer::TokenType](https://metacpan.org/pod/Regexp::Lexer::TokenType).
 
     `modifiers` is the list of modifiers of regular expression. Please see also [perlre](https://metacpan.org/pod/perlre).
 
@@ -58,7 +58,7 @@ which has minimum meaning.
 
 - [perlre](https://metacpan.org/pod/perlre)
 - [perlrebackslash](https://metacpan.org/pod/perlrebackslash)
-- [Regex::Lexer::TokenType](https://metacpan.org/pod/Regex::Lexer::TokenType)
+- [Regexp::Lexer::TokenType](https://metacpan.org/pod/Regexp::Lexer::TokenType)
 
 # LICENSE
 

@@ -1,4 +1,4 @@
-name = "Regex-Lexer"
+name = "Regexp-Lexer"
 badges = ["travis"]
 authority="cpan:MOZNION"
 

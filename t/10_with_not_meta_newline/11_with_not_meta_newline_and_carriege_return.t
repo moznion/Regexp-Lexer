@@ -1,8 +1,8 @@
 use strict;
 use warnings;
 use utf8;
-use Regex::Lexer qw(tokenize);
-use Regex::Lexer::TokenType;
+use Regexp::Lexer qw(tokenize);
+use Regexp::Lexer::TokenType;
 
 use Test::More;
 use Test::Deep;
@@ -14,52 +14,52 @@ w\\\\});
         {
             char => "h",
             index => 1,
-            type => Regex::Lexer::TokenType::Character,
+            type => Regexp::Lexer::TokenType::Character,
         },
         {
             char => "\\\\",
             index => 2,
-            type => Regex::Lexer::TokenType::EscapedCharacter,
+            type => Regexp::Lexer::TokenType::EscapedCharacter,
         },
         {
             char => "\\r",
             index => 3,
-            type => Regex::Lexer::TokenType::EscapedReturn,
+            type => Regexp::Lexer::TokenType::EscapedReturn,
         },
         {
             char => "\\n",
             index => 4,
-            type => Regex::Lexer::TokenType::EscapedNewline,
+            type => Regexp::Lexer::TokenType::EscapedNewline,
         },
         {
             char => "\\\\",
             index => 5,
-            type => Regex::Lexer::TokenType::EscapedCharacter,
+            type => Regexp::Lexer::TokenType::EscapedCharacter,
         },
         {
             char => "\\r",
             index => 6,
-            type => Regex::Lexer::TokenType::Return,
+            type => Regexp::Lexer::TokenType::Return,
         },
         {
             char => "\\n",
             index => 7,
-            type => Regex::Lexer::TokenType::Newline,
+            type => Regexp::Lexer::TokenType::Newline,
         },
         {
             char => "w",
             index => 8,
-            type => Regex::Lexer::TokenType::Character,
+            type => Regexp::Lexer::TokenType::Character,
         },
         {
             char => "\\\\",
             index => 9,
-            type => Regex::Lexer::TokenType::EscapedCharacter,
+            type => Regexp::Lexer::TokenType::EscapedCharacter,
         },
         {
             char => "\\\\",
             index => 10,
-            type => Regex::Lexer::TokenType::EscapedCharacter,
+            type => Regexp::Lexer::TokenType::EscapedCharacter,
         },
     ]);
 };
