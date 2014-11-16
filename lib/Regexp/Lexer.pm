@@ -9,7 +9,7 @@ use parent qw(Exporter);
 
 our @EXPORT_OK = qw(tokenize);
 
-our $VERSION = "0.01";
+our $VERSION = "0.02";
 
 my %escapedSpecialChar = (
     t => Regexp::Lexer::TokenType::EscapedTab,

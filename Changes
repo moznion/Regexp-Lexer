@@ -2,6 +2,10 @@ Revision history for Perl extension Regexp-Lexer
 
 {{$NEXT}}
 
+0.02 2014-11-16T15:23:33Z
+
+    - Fix handling for not escaped double quote
+
 0.01 2014-11-16T06:02:33Z
 
     - original version
