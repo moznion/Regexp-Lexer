@@ -21,7 +21,6 @@ my %escapedSpecialChar = (
     e => Regex::Lexer::TokenType::EscapedEscape,
     c => Regex::Lexer::TokenType::EscapedControlChar,
     x => Regex::Lexer::TokenType::EscapedCharHex,
-    N => Regex::Lexer::TokenType::EscapedCharUnicode,
     o => Regex::Lexer::TokenType::EscapedCharOct,
     0 => Regex::Lexer::TokenType::EscapedCharOct,
     l => Regex::Lexer::TokenType::EscapedLowerNext,
@@ -52,7 +51,6 @@ my %escapedSpecialChar = (
     g => Regex::Lexer::TokenType::EscapedBackRef,
     k => Regex::Lexer::TokenType::EscapedBackRef,
     K => Regex::Lexer::TokenType::EscapedKeepStuff,
-    N => Regex::Lexer::TokenType::EscapedNotNewline,
     v => Regex::Lexer::TokenType::EscapedVerticalWhitespace,
     V => Regex::Lexer::TokenType::EscapedNotVerticalWhitespace,
     h => Regex::Lexer::TokenType::EscapedHorizontalWhitespace,
@@ -134,7 +132,7 @@ sub tokenize {
 
     my $backslashes = 0;
     my $next_c;
-    for (my $i = 0; my $c = $chars[$i]; $i++) {
+    for (my $i = 0; defined(my $c = $chars[$i]); $i++) {
         if ($c eq '\\') {
             if ($backslashes <= 1) {
                 $backslashes++;
@@ -177,10 +175,22 @@ sub tokenize {
         }
 
         if ($backslashes == 2) {
+            my $type = $escapedSpecialChar{$c};
+
+            # Determine meaning of \N
+            if ($c eq 'N') {
+                $type = Regex::Lexer::TokenType::EscapedCharUnicode;
+
+                $next_c = $chars[$i+1];
+                if (!defined $next_c || $next_c ne '{') {
+                    $type = Regex::Lexer::TokenType::EscapedNotNewline;
+                }
+            }
+
             push @tokens, {
                 char  => '\\' . $c,
                 index => ++$index,
-                type  => $escapedSpecialChar{$c} || Regex::Lexer::TokenType::EscapedCharacter,
+                type  => $type || Regex::Lexer::TokenType::EscapedCharacter,
             };
 
             $backslashes = 0;
