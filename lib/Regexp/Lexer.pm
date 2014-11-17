@@ -165,7 +165,7 @@ sub tokenize {
             if ($c eq 'n') {
                 $type = Regexp::Lexer::TokenType::Newline;
             }
-            elsif ($c eq 'r') {
+            elsif ($c eq 'r') { # XXX maybe unreachable
                 $type = Regexp::Lexer::TokenType::Return;
             }
 
