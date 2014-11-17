@@ -21,9 +21,8 @@ which has minimum meaning.
 
     Tokenizes the regular expression.
 
-    This function takes a argument as `Regexp`, namely it must be regexp quoted variable (i.e. `qr/SOMETHING/`).
+    This function takes an argument as `Regexp`, namely it must be regexp quoted variable (i.e. `qr/SOMETHING/`).
     If not `Regexp` argument is given, this function throws exception.
-    And invalid syntax regular expression is given, also this function throws exception.
 
     This function returns the result like so;
 
@@ -50,7 +49,7 @@ which has minimum meaning.
             modifiers => ['^', 'i'],
         }
 
-    `tokens` is the token list. Information `type` of token is located in the [Regexp::Lexer::TokenType](https://metacpan.org/pod/Regexp::Lexer::TokenType).
+    `tokens` is the tokens list. Information about `type` of token is located in the [Regexp::Lexer::TokenType](https://metacpan.org/pod/Regexp::Lexer::TokenType).
 
     `modifiers` is the list of modifiers of regular expression. Please see also [perlre](https://metacpan.org/pod/perlre).
 
