@@ -1,5 +1,5 @@
 package Regexp::Lexer;
-use 5.008001;
+use 5.010001;
 use strict;
 use warnings;
 use B;
