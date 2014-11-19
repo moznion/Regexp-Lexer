@@ -2,6 +2,10 @@ Revision history for Perl extension Regexp-Lexer
 
 {{$NEXT}}
 
+0.04 2014-11-19T03:06:07Z
+
+    - Discontinue supporting perl-5.8 or earlier
+
 0.03 2014-11-17T15:40:53Z
 
     - Fix tests
