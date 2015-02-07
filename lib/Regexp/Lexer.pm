@@ -119,12 +119,12 @@ sub tokenize {
     my $index = 0;
 
     my $end_of_line_exists = 0;
-    if ($chars[-1] eq '$') {
+    if (defined $chars[-1] && $chars[-1] eq '$') {
         pop @chars;
         $end_of_line_exists = 1;
     }
 
-    if ($chars[0] eq '^') {
+    if (defined $chars[0] && $chars[0] eq '^') {
         push @tokens, {
             char  => shift @chars,
             index => ++$index,
